@@ -1,4 +1,5 @@
 from enum import Enum
+#from collections import deque
 
 class token(Enum):
     # Token types
@@ -24,12 +25,13 @@ class lexer:
     
 
 
-
+stack_jump = []
 
 
 def checker(*args):
     buf = []
-    stack_jump = []
+    #stack_jump= deque()
+    global stack_jump
     #print(len(args))
     i = 0
     while i < len(args)-1:  # Update the condition here
@@ -49,23 +51,47 @@ def checker(*args):
         elif args[i] == token.OP_OUTPUT.value:
             pass
         elif args[i] == token.OP_JUMP_IF_ZERO.value:
-            pass
+            current_hidden_address = i
+            count = 0
+            #print(f'{i}here')# actual address before adding to stack 
+            ind=len(buf)
+            #if buf[ind-1].value==0:
+            #    pass
+            buf.append(lexer(args[i],count))
+           
+            stack_jump.append(ind)
+            pre_val=ind-1
+            
+            
         elif args[i] == token.OP_JUMP_IF_NOT_ZERO.value:
+            #f the byte at the data pointer is nonzero, then instead of moving the instruction pointer forward to the next command, jump it back to the command after the matching [ command.
             if len(stack_jump) == 0:
-                print("Error: ] without [")
+                print(f'{i+1} - Synatx error: ] without [')
+                buf.clear()
                 break
-            pass
-        #print(i)
-        i += 1  # increment i to avoid infinite loop
 
+            sp_pointer= len(stack_jump)-1
+            sp_return=stack_jump[sp_pointer]
+            buf.append(lexer(args[i],sp_return))
+
+       
+            stack_jump.pop()
+
+           
+       
+        i += 1  # increment i to avoid infinite looprem
+    
     return  buf
+
 if __name__ == "__main__":
    
     open_file = open("hello.bf", "r")
     file = open_file.read()
     s=checker(*file)
     for i in s:
-        print(f'{i.args1} : {i.count}')
+        print(f'{s.index(i)}:{i.args1} : {i.count}')
        # print(i.count)
    # print(s)
+    for i in stack_jump:
+        print(f'{i}help')
    # print(checker.count_inc)
