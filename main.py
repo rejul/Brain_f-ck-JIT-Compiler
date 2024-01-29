@@ -70,12 +70,14 @@ def checker(*args):
                 buf.clear()
                 break
 
-            sp_pointer= len(stack_jump)-1
-            sp_return=stack_jump[sp_pointer]
-            buf.append(lexer(args[i],sp_return))
+            sp_pointer= len(stack_jump)-1 #last index of stack_jump
+            sp_return=stack_jump[sp_pointer]#get the value of last element of stack_jump
+
+            buf.append(lexer(args[i],sp_return+1)) #append the value of sp_return to buf's (buf is a list )current object's count
+
             Cur_pointer=len(buf)-1
             #get object-->buf[sp_return].Count
-            buf[sp_return].count=Cur_pointer
+            buf[sp_return].count=Cur_pointer+1 #Backpatching '[' value points to address of ']' 
        
             stack_jump.pop()
 
@@ -83,7 +85,7 @@ def checker(*args):
        
         i += 1  # increment i to avoid infinite looprem
     
-    return  buf
+    return  buf #return buf to main function 
 
 if __name__ == "__main__":
    
