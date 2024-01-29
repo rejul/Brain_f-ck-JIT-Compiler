@@ -73,7 +73,9 @@ def checker(*args):
             sp_pointer= len(stack_jump)-1
             sp_return=stack_jump[sp_pointer]
             buf.append(lexer(args[i],sp_return))
-
+            Cur_pointer=len(buf)-1
+            #get object-->buf[sp_return].Count
+            buf[sp_return].count=Cur_pointer
        
             stack_jump.pop()
 
