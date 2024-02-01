@@ -76,7 +76,7 @@ def checker(*args):
             buf.append(lexer(args[i],sp_return+1)) #append the value of sp_return to buf's (buf is a list )current object's count
 
             Cur_pointer=len(buf)-1
-            #get object-->buf[sp_return].Count
+            #get object-->buf[sp_return].Countg
             buf[sp_return].count=Cur_pointer+1 #Backpatching '[' value points to address of ']' 
        
             stack_jump.pop()
@@ -88,6 +88,8 @@ def checker(*args):
     return  buf #return buf to main function 
 
 if __name__ == "__main__":
+
+    result=[]
    
     open_file = open("hello.bf", "r")
     file = open_file.read()
@@ -95,7 +97,20 @@ if __name__ == "__main__":
     for i in s:
         print(f'{s.index(i)}:{i.args1} : {i.count}')
        # print(i.count)
-   # print(s)
-    for i in stack_jump:
-        print(f'{i}help')
+    '''i=0
+    while i < len(s):
+
+        if i.args1==token.OP_INC.value:
+            result.append(i.count)
+
+        elif i.args1==token.OP_DEC.value:
+            
+            current_index=len(result)-1
+            result[current_index]=result[current_index]-i.count'''
+
+
+
+   # print(s
+    ''' fori in stack_jump:
+        print(f'{i}help')'''
    # print(checker.count_inc)
