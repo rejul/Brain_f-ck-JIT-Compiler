@@ -96,18 +96,21 @@ if __name__ == "__main__":
     s=checker(*file)
     for i in s:
         print(f'{s.index(i)}:{i.args1} : {i.count}')
-       # print(i.count)
-    '''i=0
-    while i < len(s):
 
-        if i.args1==token.OP_INC.value:
-            result.append(i.count)
+       # print(i.count) buffer arg and count
+    i=0
+    while i < len(s): 
 
-        elif i.args1==token.OP_DEC.value:
+        if s[i].args1==token.OP_INC.value:
+            result.append(s[i].count) #add data pointer by value of count
+            i+=1 #buffer arg and count next index
+
+        elif s[i].args1==token.OP_DEC.value:
             
-            current_index=len(result)-1
-            result[current_index]=result[current_index]-i.count'''
-
+            """current_index=len(result)-1 #get the last index of result
+            result[current_index]=result[current_index]-s[i].count"""
+            last_elm=result.pop()
+            result.append(last_elm-s[i].count)
 
 
    # print(s
